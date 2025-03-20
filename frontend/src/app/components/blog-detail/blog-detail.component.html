@@ -1,0 +1,4 @@
+<h2>{{ blog.title }}</h2>
+<p><strong>Author:</strong> {{ blog.author }} | <strong>Created At:</strong> {{ blog.createdAt | date:'short' }}</p>
+<p>{{ blog.content }}</p>
+<a routerLink="/">Back</a>

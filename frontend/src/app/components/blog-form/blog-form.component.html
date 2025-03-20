@@ -1,0 +1,13 @@
+<h2>Add a New Blog</h2>
+<form (ngSubmit)="submitBlog()">
+  <label>Title:</label>
+  <input type="text" [(ngModel)]="newBlog.title" name="title" required>
+
+  <label>Author:</label>
+  <input type="text" [(ngModel)]="newBlog.author" name="author" required>
+
+  <label>Content:</label>
+  <textarea [(ngModel)]="newBlog.content" name="content" required></textarea>
+
+  <button type="submit">Submit</button>
+</form>

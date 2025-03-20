@@ -1,0 +1,6 @@
+<form (submit)="createBlog()">
+  <input [(ngModel)]="newBlog.title" placeholder="Title" required />
+  <input [(ngModel)]="newBlog.author" placeholder="Author" required />
+  <textarea [(ngModel)]="newBlog.content" placeholder="Content" required></textarea>
+  <button type="submit">Create Blog</button>
+</form>

@@ -1,0 +1,12 @@
+<ul *ngIf="blogs.length > 0; else noBlogs">
+  <li *ngFor="let blog of blogs">
+    <h2>{{ blog.title }}</h2>
+    <p><strong>Author:</strong> {{ blog.author }} | <strong>Created At:</strong> {{ blog.createdAt | date:'short' }}</p>
+    <p>{{ blog.content }}</p>
+    <a [routerLink]="['/blog', blog.id]">Read More</a>
+  </li>
+</ul>
+
+<ng-template #noBlogs>
+  <p>No blogs available.</p>
+</ng-template>
