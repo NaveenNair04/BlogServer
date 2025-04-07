@@ -2,8 +2,18 @@
 <div class="container">
   <header></header>
 
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
+      placeholder="Search blogs by title..."
+    />
+  </div>
+
   <div class="blog-list">
-    <div class="blog-card" *ngFor="let blog of blogs">
+    <div class="blog-card" *ngFor="let blog of filteredBlogs">
       <h2>{{ blog.title }}</h2>
       <p class="meta">
         by {{ blog.author }} · {{ blog.createdAt | date: "medium" }}
