@@ -1,44 +1,43 @@
+/* login.component.css and signup.component.css */
 .auth-container {
   max-width: 340px;
-  margin: 40px auto;
-  padding: 24px;
-  background-color: white;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  box-shadow: 0 8px 24px rgba(140, 149, 159, 0.2);
+  margin: 60px auto;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
 h2 {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 500;
   text-align: center;
+  color: #1a2a3a;
 }
 
 .form-control {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 label {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
+  color: #1a2a3a;
 }
 
 input {
   width: 100%;
-  padding: 5px 12px;
+  padding: 10px 14px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
-  vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
-  box-shadow: inset 0 1px 0 rgba(208, 215, 222, 0.2);
-  transition: border-color 0.15s ease-in-out;
+  box-shadow: inset 0 1px 2px rgba(27, 31, 36, 0.075);
+  transition: all 0.2s ease;
 }
 
 input:focus {
@@ -49,37 +48,41 @@ input:focus {
 
 button {
   width: 100%;
-  padding: 5px 16px;
+  padding: 10px 16px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
   cursor: pointer;
-  user-select: none;
-  border: 1px solid rgba(27, 31, 36, 0.15);
+  border: none;
   border-radius: 6px;
-  background-color: #2da44e;
+  background-color: #1a2a3a;
   color: #ffffff;
-  box-shadow: 0 1px 0 rgba(27, 31, 36, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
 }
 
 button:hover {
-  background-color: #2c974b;
+  background-color: #2c3e50;
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
 }
 
 .auth-footer {
-  margin-top: 16px;
+  margin-top: 24px;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   color: #57606a;
 }
 
 .auth-footer a {
-  color: #0969da;
-  text-decoration: none;
+  color: #1a2a3a;
+  font-weight: 500;
 }
 
 .auth-footer a:hover {
-  text-decoration: underline;
+  color: #0969da;
 }
