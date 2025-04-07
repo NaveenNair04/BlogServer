@@ -1,7 +1,13 @@
-<h1>Blogging Platform</h1>
-<nav>
-  <a routerLink="/">Home</a> |
-  <a routerLink="/create">Create Blog</a>
-</nav>
-<hr />
-<router-outlet></router-outlet>
+<header *ngIf="!isAuthPage()">
+  <h1>Blogging Platform</h1>
+  <nav>
+    <a routerLink="/">Home</a> |
+    <a routerLink="/create">Create Blog</a> |
+    <a routerLink="/login" *ngIf="!isLoggedIn">Login</a>
+    <a href="#" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+  </nav>
+</header>
+
+<main class="container">
+  <router-outlet></router-outlet>
+</main>
