@@ -1,7 +1,9 @@
+// app.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +16,9 @@ export class AppComponent implements OnInit {
   title = 'Blogging Platform';
   isLoggedIn = false;
   currentUrl = '';
+  username: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
     // Track the current route to determine if we're on auth pages
@@ -25,8 +28,11 @@ export class AppComponent implements OnInit {
         this.currentUrl = event.urlAfterRedirects || event.url;
       });
 
-    // You would typically check for a token in localStorage or a auth service
-    this.isLoggedIn = localStorage.getItem('token') !== null;
+    // Subscribe to auth status changes
+    this.authService.getAuthStatus().subscribe(status => {
+      this.isLoggedIn = status;
+      this.username = status ? this.authService.getCurrentUsername() : null;
+    });
   }
 
   isAuthPage(): boolean {
@@ -35,9 +41,6 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    // Clear any auth tokens
-    localStorage.removeItem('token');
-    this.isLoggedIn = false;
-    this.router.navigate(['/login']);
+    this.authService.logout();
   }
 }

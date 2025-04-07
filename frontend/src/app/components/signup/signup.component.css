@@ -86,3 +86,24 @@ button:disabled {
 .auth-footer a:hover {
   color: #0969da;
 }
+
+/* login.component.css and signup.component.css */
+.error-message {
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.success-message {
+  background-color: rgba(40, 167, 69, 0.1);
+  border: 1px solid #28a745;
+  color: #28a745;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
