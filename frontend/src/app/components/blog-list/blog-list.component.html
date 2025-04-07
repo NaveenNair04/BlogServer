@@ -1,12 +1,17 @@
-<ul *ngIf="blogs.length > 0; else noBlogs">
-  <li *ngFor="let blog of blogs">
-    <h2>{{ blog.title }}</h2>
-    <p><strong>Author:</strong> {{ blog.author }} | <strong>Created At:</strong> {{ blog.createdAt | date:'short' }}</p>
-    <p>{{ blog.content }}</p>
-    <a [routerLink]="['/blog', blog.id]">Read More</a>
-  </li>
-</ul>
+<!-- blog-list.component.html -->
+<div class="container">
+  <header></header>
 
-<ng-template #noBlogs>
-  <p>No blogs available.</p>
-</ng-template>
+  <div class="blog-list">
+    <div class="blog-card" *ngFor="let blog of blogs">
+      <h2>{{ blog.title }}</h2>
+      <p class="meta">
+        by {{ blog.author }} · {{ blog.createdAt | date: "medium" }}
+      </p>
+      <p class="content">{{ blog.content | slice: 0 : 150 }}...</p>
+      <button class="view-btn" [routerLink]="['/blog', blog.id]">
+        Read More
+      </button>
+    </div>
+  </div>
+</div>

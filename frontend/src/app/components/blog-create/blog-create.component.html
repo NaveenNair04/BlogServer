@@ -1,6 +1,31 @@
-<form (submit)="createBlog()">
-  <input [(ngModel)]="newBlog.title" placeholder="Title" required />
-  <input [(ngModel)]="newBlog.author" placeholder="Author" required />
-  <textarea [(ngModel)]="newBlog.content" placeholder="Content" required></textarea>
-  <button type="submit">Create Blog</button>
+<!-- blog-create.component.html -->
+<form (submit)="createBlog()" #blogForm="ngForm" class="blog-form">
+  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <div>
+    <input
+      [(ngModel)]="newBlog.title"
+      name="title"
+      placeholder="Title"
+      required
+    />
+  </div>
+  <div>
+    <input
+      [(ngModel)]="newBlog.author"
+      name="author"
+      placeholder="Author"
+      required
+    />
+  </div>
+  <div>
+    <textarea
+      [(ngModel)]="newBlog.content"
+      name="content"
+      placeholder="Content"
+      required
+    ></textarea>
+  </div>
+  <button type="submit" [disabled]="!blogForm.valid">Create Blog</button>
 </form>

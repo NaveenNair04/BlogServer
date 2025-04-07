@@ -1,38 +1,39 @@
+
 package com.example.backend.controller;
 
 import com.example.backend.model.Blog;
 import com.example.backend.service.BlogService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200") // Allow Angular frontend to connect
 @RestController
 @RequestMapping("/api/blogs")
+@CrossOrigin(origins = "*")
 public class BlogController {
 
-    @Autowired
-    private BlogService blogService;
+    private final BlogService blogService;
+
+    public BlogController(BlogService blogService) {
+        this.blogService = blogService;
+    }
 
     @GetMapping
-    public List<Blog> getAllBlogs() {
-        return blogService.getAllBlogs();
+    public ResponseEntity<List<Blog>> getAllBlogs() {
+        return ResponseEntity.ok(blogService.getAllBlogs());
     }
 
     @GetMapping("/{id}")
-    public Optional<Blog> getBlogById(@PathVariable Long id) {
-        return blogService.getBlogById(id);
+    public ResponseEntity<Blog> getBlogById(@PathVariable Long id) {
+        Optional<Blog> blog = blogService.getBlogById(id);
+        return blog.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Blog createBlog(@RequestBody Blog blog) {
-        return blogService.createBlog(blog);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteBlog(@PathVariable Long id) {
-        blogService.deleteBlog(id);
+    public ResponseEntity<Blog> createBlog(@RequestBody Blog blog) {
+        Blog created = blogService.createBlog(blog);
+        return ResponseEntity.ok(created);
     }
 }

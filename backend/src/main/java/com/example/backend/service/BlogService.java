@@ -1,8 +1,8 @@
+
 package com.example.backend.service;
 
 import com.example.backend.model.Blog;
 import com.example.backend.repository.BlogRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +11,11 @@ import java.util.Optional;
 @Service
 public class BlogService {
 
-    @Autowired
-    private BlogRepository blogRepository;
+    private final BlogRepository blogRepository;
+
+    public BlogService(BlogRepository blogRepository) {
+        this.blogRepository = blogRepository;
+    }
 
     public List<Blog> getAllBlogs() {
         return blogRepository.findAll();
@@ -23,11 +26,7 @@ public class BlogService {
     }
 
     public Blog createBlog(Blog blog) {
+        blog.setId(null); // Ensures it's treated as a new entity
         return blogRepository.save(blog);
     }
-
-    public void deleteBlog(Long id) {
-        blogRepository.deleteById(id);
-    }
 }
-

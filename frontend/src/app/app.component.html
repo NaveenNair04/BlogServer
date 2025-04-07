@@ -1,7 +1,12 @@
-<h1>Blogging Platform</h1>
-<nav>
-  <a routerLink="/">Home</a> |
-  <a routerLink="/create">Create Blog</a>
-</nav>
-<hr />
-<router-outlet></router-outlet>
+<!-- app.component.html -->
+<div class="app-container">
+  <header class="app-header">
+    <h1 class="app-title">📝 Blogging Platform</h1>
+    <nav class="navbar">
+      <a routerLink="/" routerLinkActive="active">Home</a>
+      <a routerLink="/create" routerLinkActive="active">+ Create Blog</a>
+    </nav>
+  </header>
+  <hr />
+  <router-outlet></router-outlet>
+</div>

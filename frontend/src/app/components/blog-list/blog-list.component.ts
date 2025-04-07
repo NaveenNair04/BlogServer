@@ -18,9 +18,9 @@ export class BlogListComponent implements OnInit {
 
   ngOnInit() {
     this.blogService.getBlogs().subscribe((data) => {
-      this.blogs = data.map(blog => ({
+      this.blogs = data.map((blog) => ({
         ...blog,
-        createdAt: new Date(blog.createdAt) // Convert string to Date
+        createdAt: new Date(blog.createdAt), // Convert string to Date
       }));
     });
   }
