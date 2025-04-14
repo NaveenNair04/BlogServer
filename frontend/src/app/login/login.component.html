@@ -1,0 +1,29 @@
+<nav class="navbar" *ngIf="loginService.isLoggedIn()">
+  <ul>
+    <li><a routerLink="/blog-list">Home</a></li>
+    <li><a routerLink="/create">Create Blog</a></li>
+    <li><button (click)="logout()" class="logout-btn">Logout</button></li>
+  </ul>
+</nav>
+
+<div *ngIf="!loginService.isLoggedIn()" class="login-container">
+  <h2>Login</h2>
+  <form (ngSubmit)="login()">
+    <input
+      type="text"
+      placeholder="Username"
+      [(ngModel)]="username"
+      name="username"
+      required
+    />
+    <input
+      type="password"
+      placeholder="Password"
+      [(ngModel)]="password"
+      name="password"
+      required
+    />
+    <button type="submit">Login</button>
+  </form>
+  <p class="message">{{ message }}</p>
+</div>
