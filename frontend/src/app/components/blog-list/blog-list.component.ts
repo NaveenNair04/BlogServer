@@ -4,6 +4,7 @@ import { Blog } from '../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { LoginService } from '../../services/login.service'; // Import login service
 
 @Component({
   selector: 'app-blog-list',
@@ -16,10 +17,16 @@ export class BlogListComponent implements OnInit {
   blogs: Blog[] = [];
   filteredBlogs: Blog[] = [];
   searchTerm: string = '';
+  currentUser: string | null = null;
 
-  constructor(private blogService: BlogService) {}
+  constructor(
+    private blogService: BlogService,
+    private loginService: LoginService, // Inject login service
+  ) {}
 
   ngOnInit() {
+    this.currentUser = this.loginService.getUsername();
+
     this.blogService.getBlogs().subscribe((data) => {
       this.blogs = data.map((blog) => ({
         ...blog,

@@ -11,15 +11,23 @@ export class BlogService {
 
   constructor(private http: HttpClient) {}
 
+  // Get all blogs
   getBlogs(): Observable<Blog[]> {
     return this.http.get<Blog[]>(this.apiUrl);
   }
 
+  // Get a single blog by ID
   getBlogById(id: number): Observable<Blog> {
     return this.http.get<Blog>(`${this.apiUrl}/${id}`);
   }
 
+  // Create a new blog
   createBlog(blog: Blog): Observable<Blog> {
     return this.http.post<Blog>(this.apiUrl, blog);
+  }
+
+  // Update an existing blog
+  updateBlog(id: number, blog: Blog): Observable<Blog> {
+    return this.http.put<Blog>(`${this.apiUrl}/${id}`, blog);
   }
 }

@@ -1,59 +1,81 @@
+/* Overall container */
 .login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #f5f7fa;
-}
-
-.login-form {
-  background-color: white;
-  padding: 2rem 3rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 320px;
-}
-
-.login-form h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.login-form label {
-  font-weight: 500;
-  display: block;
-  margin-top: 1rem;
-}
-
-.login-form input {
   width: 100%;
-  padding: 0.6rem;
-  margin-top: 0.3rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 30px 25px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
 }
 
-.login-form button {
-  width: 100%;
-  padding: 0.7rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  margin-top: 1.5rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.login-form button:hover {
-  background-color: #45a049;
-}
-
-.message {
-  margin-top: 1rem;
+/* Heading */
+.login-container h2 {
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  color: #2c3e50;
   text-align: center;
-  color: #333;
-  font-size: 0.95rem;
+}
+
+/* Form layout */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Input fields */
+input[type="text"],
+input[type="password"] {
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #007bff;
+}
+
+/* Login button */
+button[type="submit"] {
+  padding: 12px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  width: 100%;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Error or success message */
+.message {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  color: #d9534f;
+  word-wrap: break-word;
+}
+
+/* Responsive fix for small screens */
+@media (max-width: 480px) {
+  .login-container {
+    margin: 50px 15px;
+    padding: 25px 20px;
+  }
 }

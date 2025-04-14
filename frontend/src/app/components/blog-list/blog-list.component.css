@@ -136,3 +136,18 @@ header {
   border: 1px solid #ccc;
   border-radius: 6px;
 }
+
+.edit-btn {
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.edit-btn:hover {
+  background-color: #1e7e34;
+}

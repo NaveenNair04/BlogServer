@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { LoginService } from '../services/login.service'; // Import the service
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
-    public loginService: LoginService, // <-- Make it public to use in template
+    public loginService: LoginService, // Make it public to use in template
   ) {}
 
   login() {
@@ -33,18 +33,21 @@ export class LoginComponent {
       .subscribe({
         next: (response) => {
           this.message = response;
-          this.loginService.login(); // Set login state
+          this.loginService.login(this.username); // Pass username to loginService
           this.router.navigate(['/blog-list']);
         },
         error: () => {
           this.message = 'Login failed';
-          this.loginService.logout(); // Reset login state
+          this.loginService.logout(); // Ensure state is reset on failure
         },
       });
   }
 
   logout() {
     this.loginService.logout();
+    this.username = '';
+    this.password = '';
+    this.message = '';
     this.router.navigate(['/']);
   }
 }

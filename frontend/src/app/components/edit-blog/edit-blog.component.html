@@ -1,0 +1,21 @@
+<div class="edit-blog-container" *ngIf="blog && isAuthor; else unauthorized">
+  <form (ngSubmit)="updateBlog()" class="edit-blog-form">
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+
+    <input [(ngModel)]="blog.title" name="title" placeholder="Title" required />
+    <textarea
+      [(ngModel)]="blog.content"
+      name="content"
+      placeholder="Content"
+      required
+    ></textarea>
+    <button type="submit">Update Blog</button>
+  </form>
+</div>
+
+<ng-template #unauthorized>
+  <p class="error-message">{{ error }}</p>
+</ng-template>

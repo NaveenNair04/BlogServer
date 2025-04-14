@@ -29,4 +29,9 @@ public class BlogService {
         blog.setId(null); // Ensures it's treated as a new entity
         return blogRepository.save(blog);
     }
+
+    // Update blog - new method
+    public Blog updateBlog(Blog blog) {
+        return blogRepository.save(blog);
+    }
 }

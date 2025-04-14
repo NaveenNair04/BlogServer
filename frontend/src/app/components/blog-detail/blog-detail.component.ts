@@ -37,6 +37,6 @@ export class BlogDetailComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/blog-list']);
   }
 }

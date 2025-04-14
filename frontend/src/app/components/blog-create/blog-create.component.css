@@ -1,5 +1,3 @@
-/* blog-create.component.css */
-
 .blog-form {
   max-width: 600px;
   margin: 0 auto;
@@ -16,7 +14,14 @@
   border-radius: 4px;
 }
 
-.blog-form button {
+.button-group {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.blog-form .create-btn {
   padding: 10px 20px;
   font-size: 1rem;
   background-color: #007bff;
@@ -26,9 +31,24 @@
   cursor: pointer;
 }
 
-.blog-form button:disabled {
+.blog-form .create-btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.blog-form .back-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.blog-form .back-btn:hover {
+  background-color: #5a6268;
 }
 
 .success-message {

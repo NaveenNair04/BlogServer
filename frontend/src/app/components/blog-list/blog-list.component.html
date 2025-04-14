@@ -1,7 +1,4 @@
-<!-- blog-list.component.html -->
 <div class="container">
-  <header></header>
-
   <!-- Search Bar -->
   <div class="search-container">
     <input
@@ -19,8 +16,18 @@
         by {{ blog.author }} · {{ blog.createdAt | date: "medium" }}
       </p>
       <p class="content">{{ blog.content | slice: 0 : 150 }}...</p>
+
       <button class="view-btn" [routerLink]="['/blog', blog.id]">
         Read More
+      </button>
+
+      <!-- Only show Edit button if current user is the author -->
+      <button
+        class="edit-btn"
+        *ngIf="blog.author === currentUser"
+        [routerLink]="['/edit-blog', blog.id]"
+      >
+        Edit
       </button>
     </div>
   </div>

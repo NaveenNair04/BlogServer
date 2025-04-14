@@ -36,4 +36,18 @@ public class BlogController {
         Blog created = blogService.createBlog(blog);
         return ResponseEntity.ok(created);
     }
+
+    // Update Blog - new endpoint
+    @PutMapping("/{id}")
+    public ResponseEntity<Blog> updateBlog(@PathVariable Long id, @RequestBody Blog blog) {
+        Optional<Blog> existingBlog = blogService.getBlogById(id);
+        
+        if (existingBlog.isPresent()) {
+            blog.setId(id);  // Ensure the correct blog ID is set
+            Blog updatedBlog = blogService.updateBlog(blog);
+            return ResponseEntity.ok(updatedBlog);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
