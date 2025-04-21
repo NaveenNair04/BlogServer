@@ -1,27 +1,30 @@
 import { Component } from '@angular/core';
-import { BlogService } from '../../services/blog.service';
-import { Blog } from '../../models/blog.model';
-import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BlogService } from '../../services/blog.service';
 import { LoginService } from '../../services/login.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-blog-create',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './blog-create.component.html',
-  styleUrls: ['./blog-create.component.css'],
+  styleUrls: ['./blog-create.component.css']
 })
 export class BlogCreateComponent {
-  newBlog: Partial<Blog> = { title: '', content: '' };
+  newBlog = {
+    title: '',
+    content: ''
+  };
   error: string | null = null;
   successMessage: string | null = null;
 
   constructor(
     private blogService: BlogService,
-    private router: Router,
     private loginService: LoginService,
+    private router: Router
   ) {}
 
   createBlog() {
@@ -30,36 +33,34 @@ export class BlogCreateComponent {
 
     const username = this.loginService.getUsername();
     if (!username) {
-      this.error = 'You must be logged in to create a blog.';
+      this.error = 'You must be logged in to create a blog';
       return;
     }
 
-    const blogWithAuthor: Blog = {
-      ...(this.newBlog as Blog),
-      author: username,
+    const blogData = {
+      title: this.newBlog.title,
+      content: this.newBlog.content,
+      author: username
     };
 
-    this.blogService.createBlog(blogWithAuthor).subscribe({
-      next: () => {
-        this.successMessage = 'Blog created successfully!';
-        this.resetForm();
+    console.log('Sending blog data:', blogData);
 
+    this.blogService.createBlog(blogData).subscribe({
+      next: (response) => {
+        console.log('Blog created successfully:', response);
+        this.successMessage = 'Blog created successfully!';
         setTimeout(() => {
-          this.router.navigate(['/blog-list']);
+          this.router.navigate(['/dashboard']);
         }, 1500);
       },
       error: (err) => {
         console.error('Error creating blog:', err);
-        this.error = 'Failed to create blog. Please try again.';
-      },
+        this.error = `Failed to create blog: ${err.message || 'Please try again'}`;
+      }
     });
   }
 
-  private resetForm() {
-    this.newBlog = { title: '', content: '' };
-  }
-
   goBack() {
-    this.router.navigate(['/blog-list']);
+    this.router.navigate(['/dashboard']);
   }
 }

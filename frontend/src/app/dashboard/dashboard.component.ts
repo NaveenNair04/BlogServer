@@ -5,11 +5,12 @@ import { LoginService } from '../services/login.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BlogService } from '../services/blog.service';
 import { Blog } from '../models/blog.model';
+import { NavbarComponent } from '../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule],
+  imports: [CommonModule, RouterModule, HttpClientModule, NavbarComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -31,17 +32,16 @@ export class DashboardComponent implements OnInit {
       return;
     }
     
-    // Fetch recent blogs using the blog service
-    this.blogService.getBlogs().subscribe({
-      next: (blogs) => {
-        this.recentBlogs = blogs
-          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-          .slice(0, 3);
-      },
-      error: (error) => {
-        console.error('Error fetching recent blogs', error);
-      }
-    });
+    if (this.username) {
+      this.blogService.getUserBlogs(this.username).subscribe({
+        next: (blogs) => {
+          this.recentBlogs = blogs.slice(0, 3); // Show only the 3 most recent blogs
+        },
+        error: (error) => {
+          console.error('Error fetching user blogs:', error);
+        }
+      });
+    }
   }
   
   logout() {

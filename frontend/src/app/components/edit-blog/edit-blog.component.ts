@@ -44,7 +44,7 @@ export class EditBlogComponent implements OnInit {
   }
 
   updateBlog(): void {
-    if (this.blog) {
+    if (this.blog && this.blog.id) {
       this.blogService.updateBlog(this.blog.id, this.blog).subscribe({
         next: () => {
           this.successMessage = 'Blog updated successfully!';

@@ -1,37 +1,45 @@
-
 package com.example.backend.service;
 
+import com.example.backend.exception.BlogNotFoundException;
+import com.example.backend.exception.InvalidBlogDataException;
 import com.example.backend.model.Blog;
 import com.example.backend.repository.BlogRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BlogService {
+    @Autowired
+    private BlogRepository blogRepository;
 
-    private final BlogRepository blogRepository;
-
-    public BlogService(BlogRepository blogRepository) {
-        this.blogRepository = blogRepository;
+    public Blog createBlog(Blog blog) {
+        validateBlog(blog);
+        return blogRepository.save(blog);
     }
 
     public List<Blog> getAllBlogs() {
-        return blogRepository.findAll();
+        return blogRepository.findAllByOrderByCreatedAtDesc();
     }
 
-    public Optional<Blog> getBlogById(Long id) {
-        return blogRepository.findById(id);
+    public List<Blog> getBlogsByAuthor(String author) {
+        return blogRepository.findByAuthorOrderByCreatedAtDesc(author);
     }
 
-    public Blog createBlog(Blog blog) {
-        blog.setId(null); // Ensures it's treated as a new entity
-        return blogRepository.save(blog);
+    public Blog getBlogById(Long id) {
+        return blogRepository.findById(id)
+            .orElseThrow(() -> new BlogNotFoundException("Blog not found with id: " + id));
     }
 
-    // Update blog - new method
-    public Blog updateBlog(Blog blog) {
-        return blogRepository.save(blog);
+    private void validateBlog(Blog blog) {
+        if (blog.getTitle() == null || blog.getTitle().trim().isEmpty()) {
+            throw new InvalidBlogDataException("Blog title cannot be empty");
+        }
+        if (blog.getContent() == null || blog.getContent().trim().isEmpty()) {
+            throw new InvalidBlogDataException("Blog content cannot be empty");
+        }
+        if (blog.getAuthor() == null || blog.getAuthor().trim().isEmpty()) {
+            throw new InvalidBlogDataException("Blog author cannot be empty");
+        }
     }
 }

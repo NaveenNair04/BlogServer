@@ -4,12 +4,13 @@ import { Blog } from '../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../../services/login.service'; // Import login service
+import { LoginService } from '../../services/login.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-blog-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, NavbarComponent],
   templateUrl: './blog-list.component.html',
   styleUrls: ['./blog-list.component.css'],
 })
@@ -21,7 +22,7 @@ export class BlogListComponent implements OnInit {
 
   constructor(
     private blogService: BlogService,
-    private loginService: LoginService, // Inject login service
+    private loginService: LoginService,
   ) {}
 
   ngOnInit() {
@@ -30,7 +31,7 @@ export class BlogListComponent implements OnInit {
     this.blogService.getBlogs().subscribe((data) => {
       this.blogs = data.map((blog) => ({
         ...blog,
-        createdAt: new Date(blog.createdAt),
+        createdAt: blog.createdAt ? new Date(blog.createdAt) : new Date()
       }));
       this.filteredBlogs = this.blogs;
     });

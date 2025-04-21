@@ -1,7 +1,9 @@
 .container {
-  max-width: 1000px;
+  padding-top: 20px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -74,17 +76,16 @@ header {
 
 .blog-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
 
 .blog-card {
+  background: white;
+  border-radius: 8px;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #fafafa;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
 }
 
 .blog-card:hover {
@@ -92,62 +93,62 @@ header {
 }
 
 .blog-card h2 {
-  margin-top: 0;
+  margin: 0 0 10px 0;
   color: #333;
 }
 
 .meta {
-  font-size: 0.85rem;
   color: #666;
+  font-size: 0.9em;
   margin-bottom: 10px;
 }
 
 .content {
-  font-size: 1rem;
   color: #444;
+  line-height: 1.5;
   margin-bottom: 15px;
 }
 
-.view-btn {
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.view-btn, .edit-btn {
   padding: 8px 16px;
-  font-size: 0.95rem;
-  background-color: #28a745;
-  color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
+  font-weight: 500;
   transition: background-color 0.2s ease;
+}
+
+.view-btn {
+  background-color: #4285f4;
+  color: white;
 }
 
 .view-btn:hover {
-  background-color: #1e7e34;
-}
-
-.search-container {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.search-container input {
-  width: 60%;
-  max-width: 400px;
-  padding: 10px 15px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  background-color: #3367d6;
 }
 
 .edit-btn {
-  padding: 8px 16px;
-  font-size: 0.95rem;
-  background-color: #28a745;
+  background-color: #34a853;
   color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 .edit-btn:hover {
-  background-color: #1e7e34;
+  background-color: #2d8a46;
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
 }
