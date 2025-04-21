@@ -28,7 +28,7 @@ export class AppComponent {
   }
 
   shouldShowNavbar(): boolean {
-    // Show navbar on all pages except login
-    return this.currentRoute !== '/login';
+    // Show navbar on all pages except login and signup
+    return !['/login', '/signup'].includes(this.currentRoute);
   }
 }
