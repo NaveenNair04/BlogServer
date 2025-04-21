@@ -14,27 +14,29 @@ changing the database name, user, and password. in two files;
 
 ## **Caution** 
 
-**This is an assumption that you have maven and springboot configured properly**
+**This is an assumption that you have maven, springboot, and MYSQL configured properly**
 
 ## **Steps to Run the Website**
 
 ### Step1 
 
+Execute the commands from the - MySQL_Queries.txt after creating a database of your desired name
+
 Open two seperate terminals
-
-### Step2 
-
-Navigate to the backend and frontend dir in one terminal each
 
 ### Step3 
 
-Start the backend with `mvn spring-boot:run` 
+Navigate to the backend and frontend dir in one terminal each
 
 ### Step4
 
+Start the backend with `mvn spring-boot:run` 
+
+### Step5
+
 Install all the dependencies for the front end with `npm install`
 
-### Step5 
+### Step6 
 
 start the front end with `npm start`
 
