@@ -43,6 +43,11 @@ public class BlogService {
         return blogRepository.save(existingBlog);
     }
 
+    public void deleteBlog(Long id) {
+        Blog blog = getBlogById(id); // This will throw BlogNotFoundException if blog doesn't exist
+        blogRepository.delete(blog);
+    }
+
     private void validateBlog(Blog blog) {
         if (blog.getTitle() == null || blog.getTitle().trim().isEmpty()) {
             throw new InvalidBlogDataException("Blog title cannot be empty");

@@ -49,6 +49,26 @@ export class BlogService {
     return this.http.get<Blog[]>(`${this.apiUrl}/user/${username}`);
   }
 
+  // Delete a blog
+  deleteBlog(id: number | undefined): Observable<void> {
+    if (!id) {
+      return throwError(() => new Error('Cannot delete blog: ID is undefined'));
+    }
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => console.log(`Successfully sent delete request for blog ID: ${id}`)),
+      catchError(error => {
+        console.error('Delete blog error:', error);
+        if (error.status === 404) {
+          return throwError(() => new Error('Blog not found'));
+        } else if (error.status === 403) {
+          return throwError(() => new Error('You do not have permission to delete this blog'));
+        } else {
+          return throwError(() => new Error('Failed to delete blog. Please try again later.'));
+        }
+      })
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.error('An error occurred:', error);
     let errorMessage = 'An error occurred';

@@ -43,4 +43,26 @@ export class BlogListComponent implements OnInit {
       blog.title.toLowerCase().includes(term),
     );
   }
+
+  deleteBlog(id: number | undefined) {
+    if (!id) {
+      console.error('Cannot delete blog: ID is undefined');
+      return;
+    }
+    
+    if (confirm('Are you sure you want to delete this blog?')) {
+      this.blogService.deleteBlog(id).subscribe({
+        next: () => {
+          console.log(`Successfully deleted blog with ID: ${id}`);
+          // Remove the deleted blog from the list
+          this.blogs = this.blogs.filter(blog => blog.id !== id);
+          this.filteredBlogs = this.filteredBlogs.filter(blog => blog.id !== id);
+        },
+        error: (error) => {
+          console.error('Error deleting blog:', error);
+          alert(error.message || 'Failed to delete blog. Please try again.');
+        }
+      });
+    }
+  }
 }

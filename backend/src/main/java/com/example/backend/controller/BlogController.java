@@ -51,6 +51,22 @@ public class BlogController {
         return ResponseEntity.ok(blog);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBlog(@PathVariable Long id) {
+        try {
+            logger.info("Attempting to delete blog with ID: {}", id);
+            blogService.deleteBlog(id);
+            logger.info("Successfully deleted blog with ID: {}", id);
+            return ResponseEntity.ok().build();
+        } catch (BlogNotFoundException e) {
+            logger.error("Blog not found for deletion: {}", id, e);
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            logger.error("Error deleting blog with ID {}: {}", id, e.getMessage(), e);
+            return ResponseEntity.badRequest().body("Error deleting blog: " + e.getMessage());
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateBlog(@PathVariable Long id, @RequestBody Blog blog) {
         try {
