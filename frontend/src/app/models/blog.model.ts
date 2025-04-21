@@ -6,4 +6,5 @@ export interface Blog {
   createdAt?: Date;
   likesCount?: number;
   isLiked?: boolean;
+  commentCount?: number;
 }

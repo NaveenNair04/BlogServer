@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 import { LikeService } from '../../services/like.service';
+import { CommentService } from '../../services/comment.service';
 import { Blog } from '../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-blog-list',
@@ -23,6 +25,7 @@ export class BlogListComponent implements OnInit {
   constructor(
     private blogService: BlogService,
     private likeService: LikeService,
+    private commentService: CommentService,
     private loginService: LoginService,
   ) {}
 
@@ -36,10 +39,27 @@ export class BlogListComponent implements OnInit {
       this.blogs = data.map((blog) => ({
         ...blog,
         createdAt: blog.createdAt ? new Date(blog.createdAt) : new Date(),
-        likesCount: blog.likesCount || 0
+        likesCount: blog.likesCount || 0,
+        commentCount: 0
       }));
       this.filteredBlogs = this.blogs;
       this.checkLikes();
+      this.loadCommentCounts();
+    });
+  }
+
+  loadCommentCounts() {
+    this.filteredBlogs.forEach(blog => {
+      if (blog.id) {
+        this.commentService.getCommentCount(blog.id).subscribe({
+          next: (count) => {
+            blog.commentCount = count;
+          },
+          error: (error) => {
+            console.error('Error fetching comment count:', error);
+          }
+        });
+      }
     });
   }
 
