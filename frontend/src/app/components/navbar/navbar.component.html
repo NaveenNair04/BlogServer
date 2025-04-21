@@ -1,10 +1,14 @@
-<nav class="navbar">
+<nav class="navbar" *ngIf="loginService.isLoggedIn()">
   <div class="logo">📝 Blog App</div>
   <ul class="nav-links">
-    <li><a routerLink="/blog-list" routerLinkActive="active">Home</a></li>
+    <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+    <li><a routerLink="/blog-list" routerLinkActive="active">All Blogs</a></li>
     <li><a routerLink="/create" routerLinkActive="active">Create Blog</a></li>
-    <!-- Add more links here -->
-    <!-- <li><a routerLink="/profile">Profile</a></li> -->
-    <!-- <li><a routerLink="/logout">Logout</a></li> -->
+    <li>
+      <button class="logout-btn" (click)="logout()">
+        <span class="username" *ngIf="loginService.getUsername()">{{ loginService.getUsername() }}</span>
+        Logout
+      </button>
+    </li>
   </ul>
 </nav>

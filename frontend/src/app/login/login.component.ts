@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
@@ -34,7 +34,7 @@ export class LoginComponent {
         next: (response) => {
           this.message = response;
           this.loginService.login(this.username); // Pass username to loginService
-          this.router.navigate(['/blog-list']);
+          this.router.navigate(['/dashboard']); // Changed from '/blog-list' to '/dashboard'
         },
         error: () => {
           this.message = 'Login failed';

@@ -1,0 +1,47 @@
+<div class="dashboard-container">
+    <header class="dashboard-header">
+        <div class="header-content">
+            <h1>Welcome to Your Dashboard</h1>
+            <div class="user-info">
+                <span>Welcome, {{ username }}</span>
+                <button class="logout-btn" (click)="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-content">
+        <div class="dashboard-actions">
+            <h2>Quick Actions</h2>
+            <div class="action-buttons">
+                <a [routerLink]="['/create']" class="action-btn create-btn">
+                    Create New Blog
+                </a>
+                <a [routerLink]="['/blog-list']" class="action-btn view-btn">
+                    View All Blogs
+                </a>
+            </div>
+        </div>
+
+        <div class="recent-blogs" *ngIf="recentBlogs.length > 0">
+            <h2>Recent Blogs</h2>
+            <div class="blog-cards">
+                <div class="blog-card" *ngFor="let blog of recentBlogs">
+                    <h3>{{ blog.title }}</h3>
+                    <p class="blog-excerpt">{{ blog.content | slice:0:100 }}...</p>
+                    <div class="blog-meta">
+                        <span>By {{ blog.author }}</span>
+                        <span>{{ blog.createdAt | date:'medium' }}</span>
+                    </div>
+                    <a [routerLink]="['/blog', blog.id]" class="read-more">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-state" *ngIf="recentBlogs.length === 0">
+            <p>You haven't created any blogs yet.</p>
+            <a [routerLink]="['/create']" class="action-btn create-btn">
+                Create Your First Blog
+            </a>
+        </div>
+    </div>
+</div> 

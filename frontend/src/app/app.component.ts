@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,5 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'Blogging Platform';
+  constructor(public loginService: LoginService) {}
 }

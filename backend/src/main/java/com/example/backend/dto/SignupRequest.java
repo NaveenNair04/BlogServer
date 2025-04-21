@@ -1,11 +1,11 @@
-// dto/LoginRequest.java
 package com.example.backend.dto;
 
-public class LoginRequest {
+public class SignupRequest {
     private String username;
     private String password;
+    private String email;
 
-    // Getters and setters
+    // Getters and Setters
     public String getUsername() {
         return username;
     }
@@ -21,4 +21,12 @@ public class LoginRequest {
     public void setPassword(String password) {
         this.password = password;
     }
-}
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+} 
