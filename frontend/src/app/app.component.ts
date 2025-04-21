@@ -23,11 +23,12 @@ export class AppComponent {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       this.currentRoute = event.url;
+      console.log('Current route:', this.currentRoute); // Debug log
     });
   }
 
   shouldShowNavbar(): boolean {
-    // Show navbar on signup page and when logged in
-    return this.currentRoute === '/signup' || this.loginService.isLoggedIn();
+    // Show navbar on all pages except login
+    return this.currentRoute !== '/login';
   }
 }

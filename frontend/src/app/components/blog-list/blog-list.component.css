@@ -150,6 +150,41 @@ header {
   background-color: #c82333;
 }
 
+.like-btn {
+  background-color: transparent;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.like-btn:hover:not([disabled]) {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.like-btn.liked {
+  background-color: #dc3545;
+  color: white;
+}
+
+.like-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.like-icon {
+  font-size: 16px;
+}
+
+.like-count {
+  font-weight: 500;
+}
+
 .search-container {
   margin-bottom: 20px;
 }

@@ -1,7 +1,10 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Blog;
+import com.example.backend.model.Comment;
 import com.example.backend.service.BlogService;
+import com.example.backend.service.BlogLikeService;
+import com.example.backend.service.CommentService;
 import com.example.backend.exception.BlogNotFoundException;
 import com.example.backend.exception.InvalidBlogDataException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/blogs")
@@ -19,6 +23,12 @@ public class BlogController {
     
     @Autowired
     private BlogService blogService;
+
+    @Autowired
+    private BlogLikeService blogLikeService;
+
+    @Autowired
+    private CommentService commentService;
 
     @PostMapping
     public ResponseEntity<Blog> createBlog(@RequestBody Blog blog) {
@@ -81,6 +91,90 @@ public class BlogController {
         } catch (Exception e) {
             logger.error("Error updating blog: ", e);
             return ResponseEntity.badRequest().body("Failed to update blog: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/{id}/like")
+    public ResponseEntity<?> toggleLike(@PathVariable Long id, @RequestParam String username) {
+        try {
+            blogLikeService.toggleLike(id, username);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            logger.error("Error toggling like: ", e);
+            return ResponseEntity.badRequest().body("Error toggling like: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}/likes")
+    public ResponseEntity<?> getLikeCount(@PathVariable Long id) {
+        try {
+            long count = blogLikeService.getLikeCount(id);
+            return ResponseEntity.ok(count);
+        } catch (Exception e) {
+            logger.error("Error getting like count: ", e);
+            return ResponseEntity.badRequest().body("Error getting like count: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}/has-liked")
+    public ResponseEntity<?> hasUserLiked(@PathVariable Long id, @RequestParam String username) {
+        try {
+            boolean hasLiked = blogLikeService.hasUserLiked(id, username);
+            return ResponseEntity.ok(hasLiked);
+        } catch (Exception e) {
+            logger.error("Error checking if user has liked: ", e);
+            return ResponseEntity.badRequest().body("Error checking if user has liked: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/{id}/comments")
+    public ResponseEntity<?> addComment(
+        @PathVariable Long id,
+        @RequestParam String author,
+        @RequestBody String content
+    ) {
+        try {
+            Comment comment = commentService.createComment(id, author, content);
+            return ResponseEntity.ok(comment);
+        } catch (Exception e) {
+            logger.error("Error adding comment: ", e);
+            return ResponseEntity.badRequest().body("Error adding comment: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<?> getComments(@PathVariable Long id) {
+        try {
+            List<Comment> comments = commentService.getCommentsByBlog(id);
+            return ResponseEntity.ok(comments);
+        } catch (Exception e) {
+            logger.error("Error getting comments: ", e);
+            return ResponseEntity.badRequest().body("Error getting comments: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<?> deleteComment(
+        @PathVariable Long commentId,
+        @RequestParam String username
+    ) {
+        try {
+            commentService.deleteComment(commentId, username);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            logger.error("Error deleting comment: ", e);
+            return ResponseEntity.badRequest().body("Error deleting comment: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}/comments/count")
+    public ResponseEntity<?> getCommentCount(@PathVariable Long id) {
+        try {
+            long count = commentService.getCommentCount(id);
+            return ResponseEntity.ok(count);
+        } catch (Exception e) {
+            logger.error("Error getting comment count: ", e);
+            return ResponseEntity.badRequest().body("Error getting comment count: " + e.getMessage());
         }
     }
 }

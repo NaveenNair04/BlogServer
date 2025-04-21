@@ -37,6 +37,16 @@
         >
           Delete
         </button>
+
+        <button
+          class="like-btn"
+          [class.liked]="blog.isLiked"
+          (click)="toggleLike(blog)"
+          [disabled]="!currentUser"
+        >
+          <span class="like-icon">❤️</span>
+          <span class="like-count">{{ blog.likesCount }}</span>
+        </button>
       </div>
     </div>
   </div>

@@ -15,6 +15,7 @@ public class BlogService {
 
     public Blog createBlog(Blog blog) {
         validateBlog(blog);
+        blog.setLikesCount(0); // Initialize likes count
         return blogRepository.save(blog);
     }
 

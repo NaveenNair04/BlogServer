@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
 import { LoginService } from '../../services/login.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Blog } from '../../models/blog.model';
 
 @Component({
   selector: 'app-blog-create',
@@ -14,9 +15,10 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./blog-create.component.css']
 })
 export class BlogCreateComponent {
-  newBlog = {
+  newBlog: Partial<Blog> = {
     title: '',
-    content: ''
+    content: '',
+    likesCount: 0
   };
   error: string | null = null;
   successMessage: string | null = null;
@@ -37,10 +39,11 @@ export class BlogCreateComponent {
       return;
     }
 
-    const blogData = {
-      title: this.newBlog.title,
-      content: this.newBlog.content,
-      author: username
+    const blogData: Blog = {
+      title: this.newBlog.title || '',
+      content: this.newBlog.content || '',
+      author: username,
+      likesCount: 0
     };
 
     console.log('Sending blog data:', blogData);

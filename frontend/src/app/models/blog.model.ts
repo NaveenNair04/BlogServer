@@ -4,4 +4,6 @@ export interface Blog {
   content: string;
   author: string;
   createdAt?: Date;
+  likesCount?: number;
+  isLiked?: boolean;
 }

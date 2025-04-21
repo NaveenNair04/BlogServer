@@ -5,12 +5,11 @@ import { LoginService } from '../services/login.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BlogService } from '../services/blog.service';
 import { Blog } from '../models/blog.model';
-import { NavbarComponent } from '../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule, NavbarComponent],
+  imports: [CommonModule, RouterModule, HttpClientModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })

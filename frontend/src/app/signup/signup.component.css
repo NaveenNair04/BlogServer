@@ -2,7 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: calc(100vh - 60px); /* Subtract navbar height */
+    padding-top: 60px; /* Add padding for navbar */
     background-color: #f5f5f5;
 }
 

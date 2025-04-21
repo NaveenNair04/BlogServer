@@ -7,7 +7,12 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    HttpClientModule, 
+    RouterModule
+  ],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
