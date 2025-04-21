@@ -31,6 +31,18 @@ public class BlogService {
             .orElseThrow(() -> new BlogNotFoundException("Blog not found with id: " + id));
     }
 
+    public Blog updateBlog(Long id, Blog updatedBlog) {
+        Blog existingBlog = getBlogById(id); // This will throw BlogNotFoundException if blog doesn't exist
+        
+        // Update the fields
+        existingBlog.setTitle(updatedBlog.getTitle());
+        existingBlog.setContent(updatedBlog.getContent());
+        // Don't update author as it should remain the same
+        
+        validateBlog(existingBlog);
+        return blogRepository.save(existingBlog);
+    }
+
     private void validateBlog(Blog blog) {
         if (blog.getTitle() == null || blog.getTitle().trim().isEmpty()) {
             throw new InvalidBlogDataException("Blog title cannot be empty");

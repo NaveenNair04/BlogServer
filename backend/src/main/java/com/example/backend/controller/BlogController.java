@@ -2,6 +2,8 @@ package com.example.backend.controller;
 
 import com.example.backend.model.Blog;
 import com.example.backend.service.BlogService;
+import com.example.backend.exception.BlogNotFoundException;
+import com.example.backend.exception.InvalidBlogDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +49,22 @@ public class BlogController {
     public ResponseEntity<Blog> getBlogById(@PathVariable Long id) {
         Blog blog = blogService.getBlogById(id);
         return ResponseEntity.ok(blog);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateBlog(@PathVariable Long id, @RequestBody Blog blog) {
+        try {
+            Blog updatedBlog = blogService.updateBlog(id, blog);
+            return ResponseEntity.ok(updatedBlog);
+        } catch (BlogNotFoundException e) {
+            logger.error("Blog not found: ", e);
+            return ResponseEntity.notFound().build();
+        } catch (InvalidBlogDataException e) {
+            logger.error("Invalid blog data: ", e);
+            return ResponseEntity.badRequest().body("Invalid blog data: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error updating blog: ", e);
+            return ResponseEntity.badRequest().body("Failed to update blog: " + e.getMessage());
+        }
     }
 }
