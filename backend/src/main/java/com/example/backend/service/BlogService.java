@@ -3,7 +3,7 @@ package com.example.backend.service;
 import com.example.backend.exception.BlogNotFoundException;
 import com.example.backend.exception.InvalidBlogDataException;
 import com.example.backend.model.Blog;
-import com.example.backend.repository.BlogRepository;
+import com.example.backend.dao.BlogDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -11,24 +11,24 @@ import java.util.List;
 @Service
 public class BlogService {
     @Autowired
-    private BlogRepository blogRepository;
+    private BlogDao blogDao;
 
     public Blog createBlog(Blog blog) {
         validateBlog(blog);
         blog.setLikesCount(0); // Initialize likes count
-        return blogRepository.save(blog);
+        return blogDao.save(blog);
     }
 
     public List<Blog> getAllBlogs() {
-        return blogRepository.findAllByOrderByCreatedAtDesc();
+        return blogDao.findAllByOrderByCreatedAtDesc();
     }
 
     public List<Blog> getBlogsByAuthor(String author) {
-        return blogRepository.findByAuthorOrderByCreatedAtDesc(author);
+        return blogDao.findByAuthorOrderByCreatedAtDesc(author);
     }
 
     public Blog getBlogById(Long id) {
-        return blogRepository.findById(id)
+        return blogDao.findById(id)
             .orElseThrow(() -> new BlogNotFoundException("Blog not found with id: " + id));
     }
 
@@ -41,13 +41,13 @@ public class BlogService {
         // Don't update author as it should remain the same
         
         validateBlog(existingBlog);
-        return blogRepository.save(existingBlog);
+        return blogDao.save(existingBlog);
     }
 
-    public void deleteBlog(Long id) {
-        Blog blog = getBlogById(id); // This will throw BlogNotFoundException if blog doesn't exist
-        blogRepository.delete(blog);
-    }
+     public void deleteBlog(Long id) {
+        Blog blog = blogDao.findById(id).orElseThrow(() -> new RuntimeException("Blog not found"));
+        blogDao.delete(blog);
+     }
 
     private void validateBlog(Blog blog) {
         if (blog.getTitle() == null || blog.getTitle().trim().isEmpty()) {

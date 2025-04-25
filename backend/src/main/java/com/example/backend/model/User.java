@@ -20,7 +20,9 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String email;
-
+    
+    @Column(nullable = false)
+    private String roles = "USER"; // Default role
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
